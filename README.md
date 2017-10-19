@@ -1,5 +1,6 @@
 # react-boilerplate
-Basic to do list boilerplate from
+
+Basic to do list boilerplate
 
 ## start server
 
