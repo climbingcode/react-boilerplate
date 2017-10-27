@@ -12,8 +12,9 @@ export class AddToDo extends React.Component {
 
     return (
       <form onSubmit={ this.addToDo.bind(this) }>
-        <input type="text" ref="newToDoInput"/>
-        <input type="submit" value="Add to do"/>
+        <input className="form-control" type="text" ref="newToDoInput"/>
+        <br/>
+        <input className="btn btn-success pull-right" type="submit" value="Add to do"/>
       </form>
     )
 
