@@ -1,23 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export class AddToDo extends React.Component {
+const AddToDo = ({
+  addToDo
+}) =>  {
 
-  addToDo(e) {
-    e.preventDefault();
-    const value = this.refs['newToDoInput'].value;
-    this.props.addToDo(value);
-  }
+    let newToDoInput;
 
-  render() {
+    const onSubmit = e => {
+      e.preventDefault();
+      addToDo(newToDoInput.value);
+      newToDoInput.value = "";
+    }
 
     return (
-      <form onSubmit={ this.addToDo.bind(this) }>
-        <input className="form-control" type="text" ref="newToDoInput"/>
+      <form onSubmit={ onSubmit }>
+        <input className="form-control" type="text" ref={ el => newToDoInput= el }/>
         <br/>
         <input className="btn btn-success pull-right" type="submit" value="Add to do"/>
       </form>
     )
 
-  }
-
 }
+
+AddToDo.propTypes = {
+  addToDo: PropTypes.func.isRequired
+}
+
+export default AddToDo;

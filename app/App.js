@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import ToDoList from './to-do-list.jsx';
+import AddToDo from './add-to-do.jsx';
 
-import { AddToDo } from './add-to-do.jsx';
-
-export class App extends React.Component {
+export class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       toDos: []
     }
+
+    this.deleteToDo = this.deleteToDo.bind(this);
+
   }
 
   componentWillMount() {
@@ -24,6 +26,7 @@ export class App extends React.Component {
       })
     })
     .catch(err => alert(err))
+
   }
 
   addToDo(toDo) {
@@ -42,10 +45,22 @@ export class App extends React.Component {
 
   }
 
+  deleteToDo(id) {
+
+    axios.get(`/api/to-dos/${ id}/delete`)
+    .then(({ data }) => {
+      this.setState({
+        toDos: data
+      });
+    })
+
+  }
+
   render() {
 
     return (<section className="col-xs-10 col-xs-offset-1">
-      <ToDoList toDos={ this.state.toDos }/>
+      <ToDoList toDos={ this.state.toDos } deleteToDo={ this.deleteToDo }/>
+      <br/>
       <AddToDo addToDo={ this.addToDo.bind(this) }/>
     </section>);
   }

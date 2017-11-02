@@ -18,35 +18,56 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-const db = [
+let toDos = [
   {
+    id: uid(),
     title: "Task 1",
     createAt: new Date()
   },
   {
-    title: "Task 1",
+    id: uid(),
+    title: "Task 2",
     createAt: new Date()
   },
   {
-    title: "Task 1",
+    id: uid(),
+    title: "Task 3",
     createAt: new Date()
   }
 ];
 
-app.get('/api/to-dos', function(req, res) {
-  res.json(db);
+function uid() {
+  return Math.random().toString(36).substring(7);
+}
+
+app.get('/api/to-dos', (req, res) => {
+  res.json(toDos);
 });
 
-app.post('/api/to-dos', function(req, res) {
-  console.log(req.body);
+app.post('/api/to-dos', (req, res) => {
+
   const { title } = req.body;
 
   const toDo = {
+    id: uid(),
     title: title,
     createAt: new Date()
   }
-  db.push(toDo);
+
+  toDos.push(toDo);
+
   res.json(toDo);
+
+});
+
+app.get('/api/to-dos/:id/delete', (req, res) => {
+
+  const { id } = req.params;
+
+  toDos = toDos.filter(toDo => toDo.id.toString() !== id.toString());
+
+  res.json(toDos);
+
 });
 
 if (isDeveloping) {
