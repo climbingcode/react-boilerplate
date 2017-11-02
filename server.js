@@ -66,7 +66,7 @@ app.get('/api/to-dos/:id/delete', (req, res) => {
 
   toDos = toDos.filter(toDo => toDo.id.toString() !== id.toString());
 
-  res.json(toDos);
+  res.send(200);
 
 });
 

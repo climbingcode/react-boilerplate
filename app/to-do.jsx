@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 const ToDo = ({
   id,
   title,
-  createAt
+  createAt,
+  actions,
+  deleteToDo
 }) => {
 
   return (<div className="to-do">

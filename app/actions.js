@@ -14,29 +14,37 @@ export const fetchToDos = () => {
 
 }
 //
-// addToDo(toDo) {
-//
-//   const { toDos } = this.state;
-//
-//   axios.post('/api/to-dos', {
-//     title: toDo
-//   })
-//   .then(({ data }) => {
-//     toDos.push(data);
-//     this.setState({
-//       toDos: toDos
-//     });
-//   })
-//
-// }
-//
-// deleteToDo(id) {
-//
-//   axios.get(`/api/to-dos/${ id}/delete`)
-//   .then(({ data }) => {
-//     this.setState({
-//       toDos: data
-//     });
-//   })
-//
-// }
+export const addToDo = (toDo) => {
+
+  return function(dispatch) {
+
+    axios.post('/api/to-dos', {
+      title: toDo
+    })
+    .then(({ data }) => {
+      dispatch({
+        type: 'ADD_TO_DO',
+        payload: data
+      })
+    })
+
+  }
+
+
+}
+
+export const deleteToDo = (id) => {
+
+  return function(dispatch) {
+
+    axios.get(`/api/to-dos/${ id }/delete`)
+    .then(({ data }) => {
+      dispatch({
+        type: 'REMOVE_TO_DO',
+        payload: id
+      })
+    })
+  }
+
+
+}

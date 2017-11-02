@@ -9,7 +9,7 @@ import AddToDo from './add-to-do.jsx';
 import * as actions from './actions';
 
 class App extends Component {
-  
+
   componentWillMount() {
     const { actions } = this.props;
     actions.fetchToDos();

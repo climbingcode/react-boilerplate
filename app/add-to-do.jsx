@@ -9,7 +9,7 @@ const AddToDo = ({
 
     const onSubmit = e => {
       e.preventDefault();
-      addToDo(newToDoInput.value);
+      actions.addToDo(newToDoInput.value);
       newToDoInput.value = "";
     }
 
