@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 const ToDo = ({
   id,
   title,
-  createAt,
-  deleteToDo
+  createAt
 }) => {
 
   return (<div className="to-do">
     <h3>{ title }</h3>
-    <i>{ createAt }</i>
+    <i>{ createAt.toString() }</i>
     <a onClick={ () => deleteToDo(id) } className="btn btn-danger pull-right">Remove</a>
   </div>);
 

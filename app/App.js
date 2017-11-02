@@ -1,67 +1,45 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ToDoList from './to-do-list.jsx';
 import AddToDo from './add-to-do.jsx';
+import * as actions from './actions';
 
-export class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      toDos: []
-    }
-
-    this.deleteToDo = this.deleteToDo.bind(this);
-
-  }
-
+class App extends Component {
+  
   componentWillMount() {
-
-    axios.get('/api/to-dos')
-    .then(({ data }) => {
-      this.setState({
-        toDos: data
-      })
-    })
-    .catch(err => alert(err))
-
-  }
-
-  addToDo(toDo) {
-
-    const { toDos } = this.state;
-
-    axios.post('/api/to-dos', {
-      title: toDo
-    })
-    .then(({ data }) => {
-      toDos.push(data);
-      this.setState({
-        toDos: toDos
-      });
-    })
-
-  }
-
-  deleteToDo(id) {
-
-    axios.get(`/api/to-dos/${ id}/delete`)
-    .then(({ data }) => {
-      this.setState({
-        toDos: data
-      });
-    })
-
+    const { actions } = this.props;
+    actions.fetchToDos();
   }
 
   render() {
 
-    return (<section className="col-xs-10 col-xs-offset-1">
-      <ToDoList toDos={ this.state.toDos } deleteToDo={ this.deleteToDo }/>
-      <br/>
-      <AddToDo addToDo={ this.addToDo.bind(this) }/>
-    </section>);
+    return (
+      <section className="col-xs-10 col-xs-offset-1">
+        <ToDoList { ...this.props }/>
+        <br/>
+        <AddToDo { ...this.props }/>
+      </section>
+    );
+
+  }
+
+}
+
+const mapStateToProps = (state = {}) => {
+  return {
+    toDos: state.toDos
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return { actions: bindActionCreators(actions, dispatch) }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AddToDo = ({
-  addToDo
+  actions
 }) =>  {
 
     let newToDoInput;
@@ -21,10 +21,6 @@ const AddToDo = ({
       </form>
     )
 
-}
-
-AddToDo.propTypes = {
-  addToDo: PropTypes.func.isRequired
 }
 
 export default AddToDo;
