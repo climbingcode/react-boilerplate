@@ -18,9 +18,11 @@ const ToDo = ({
 }
 
 ToDo.PropTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   createAt: PropTypes.string.isRequired,
-  deleteToDo: PropTypes.func.isRequired
+  deleteToDo: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired
 }
 
 export default ToDo;
